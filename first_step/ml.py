@@ -6,14 +6,14 @@ from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.feature_selection import RFE
 from sklearn.linear_model import LogisticRegression
 
-dataset = np.loadtxt('test2.csv', delimiter=";", skiprows=1)
+dataset = np.loadtxt('learn_1.csv', delimiter=";", skiprows=1)
 
 X = dataset[:,0]
 y = dataset[:,1]
 
 X = X.reshape(-1,1)
-normalized_X = preprocessing.normalize(X)
-standardized_X = preprocessing.scale(X)
+#normalized_X = preprocessing.normalize(X)
+#standardized_X = preprocessing.scale(X)
 
 #model = ExtraTreesClassifier()
 #model.fit(X, y)
@@ -39,16 +39,16 @@ pickle.dump(model, open(filename, 'wb'))
 # load the model from disk
 loaded_model = pickle.load(open(filename, 'rb'))
 
-test_dataset = np.loadtxt('test2_control.csv', delimiter=";", skiprows=1)
+test_dataset = np.loadtxt('study.csv', delimiter=";", skiprows=1)
 #X = test_dataset[:,0]
 test_X = test_dataset
 print(test_X)
 #y = test_dataset[:,1]
 test_X = test_X.reshape(-1,1)
 
-#result = loaded_model.score(X, y)
-#print(result)
+result = loaded_model.score(X, y)
+print(result)
 
 predictions = loaded_model.predict(test_X)
-#for j in range(len(test_X)):
-#    print("Data: %s, Even: %s" % (test_X[j], predictions[j]))
+for j in range(len(test_X)):
+    print("Data: %s, Even: %s" % (test_X[j], predictions[j]))
